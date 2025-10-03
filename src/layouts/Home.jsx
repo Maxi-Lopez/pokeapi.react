@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div style={{ textAlign: "center", padding: "2rem" }}>
-      <h1>¡Bienvenido a la Pokédex!</h1>
+      <h1>Listado de Pokemons</h1>
       <button 
         onClick={ir_PokeApi} 
         style={{

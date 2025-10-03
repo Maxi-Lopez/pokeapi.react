@@ -21,14 +21,16 @@ const PokeListados = () => {
       ])
       if (!resPok.ok || !resAb.ok) throw new Error("Error al cargar datos")
       const dataPok = await resPok.json()
-      const dataAb = await resAb.json()
+      const dataHab = await resAb.json()
       setPokemons(dataPok.results)
-      setAbilities(dataAb.results)
-    } catch (err) {
+      setAbilities(dataHab.results)
+    } 
+    catch (err) {
       setError(err.message)
       setPokemons([])
       setAbilities([])
-    } finally {
+    } 
+    finally {
       setLoading(false)
     }
   }
@@ -41,7 +43,8 @@ const PokeListados = () => {
       if (!res.ok) throw new Error("Error al obtener detalle")
       const data = await res.json()
       setSeleccionado(data)
-    } catch (err) {
+    } 
+    catch (err) {
       console.error(err)
       setSeleccionado(null)
     }
@@ -62,47 +65,47 @@ const PokeListados = () => {
         ← Volver a Home
       </Link>
 
-      <h1 style={{ textAlign: "center", marginBottom: "1rem" }}>Pokédex</h1>
+      <h1 style={{ textAlign: "center", marginBottom: "1rem" }}>Pokemons</h1>
 
       {loading && <p>Cargando...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {pokemons.length > 0 && (
-        <div>
-          <h3>Pokémon</h3>
-          <DataTable value={pokemons} paginator rows={50}>
-            <Column 
-              header="#" 
-              body={(rowData, options) => options.rowIndex + 1} 
-              style={{ width: "50px" }} 
-            />
-            <Column 
-              field="name" 
-              header="Name" 
-              body={(rowData) => (
-                <span 
-                  style={{ cursor: "pointer", textTransform: "capitalize" }}
-                  onClick={() => mostrarDetalle(rowData.url)}
-                >
-                  {rowData.name}
-                </span>
-              )}
-            />
-          </DataTable>
-        </div>
-      )}
+      {pokemons.length > 0 && abilities.length > 0 && (
+        <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
+          <div style={{ flex: 1 }}>
+            <h3>Pokemon</h3>
+            <DataTable value={pokemons} paginator rows={50}>
+              <Column 
+                header="#" 
+                body={(rowData, options) => options.rowIndex + 1} 
+                style={{ width: "50px" }} 
+              />
+              <Column 
+                field="name" 
+                header="Nombre" 
+                body={(rowData) => (
+                  <span 
+                    style={{ cursor: "pointer", textTransform: "capitalize" }}
+                    onClick={() => mostrarDetalle(rowData.url)}
+                  >
+                    {rowData.name}
+                  </span>
+                )}
+              />
+            </DataTable>
+          </div>
 
-      {abilities.length > 0 && (
-        <div style={{ marginTop: "2rem" }}>
-          <h3>Habilidades</h3>
-          <DataTable value={abilities} paginator rows={50}>
-            <Column 
-              header="#" 
-              body={(rowData, options) => options.rowIndex + 1} 
-              style={{ width: "50px" }} 
-            />
-            <Column field="name" header="Name" body={(rowData) => rowData.name} />
-          </DataTable>
+          <div style={{ flex: 1 }}>
+            <h3>Habilidades</h3>
+            <DataTable value={abilities} paginator rows={50}>
+              <Column 
+                header="#" 
+                body={(rowData, options) => options.rowIndex + 1} 
+                style={{ width: "50px" }} 
+              />
+              <Column field="name" header="Tipo" body={(rowData) => rowData.name} />
+            </DataTable>
+          </div>
         </div>
       )}
 
@@ -125,7 +128,7 @@ const PokeListados = () => {
             <p><strong>ID:</strong> {seleccionado.id}</p>
             <p><strong>Peso:</strong> {seleccionado.weight}</p>
             <p><strong>Altura:</strong> {seleccionado.height}</p>
-            <p><strong>Tipos:</strong> {seleccionado.types?.map(t => t.type.name).join(", ")}</p>
+            <p><strong>Tipo:</strong> {seleccionado.types?.map(t => t.type.name).join(", ")}</p>
           </div>
         )}
       </Dialog>
