@@ -78,7 +78,7 @@ const PokeListados = () => {
       {pokemons.length > 0 && abilities.length > 0 && (
         <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
           <div style={{ flex: 1 }}>
-            <h3>Pokémon</h3>
+            <h3>Pokemon</h3>
             <DataTable value={pokemons} paginator rows={50}>
               <Column 
                 header="#" 
