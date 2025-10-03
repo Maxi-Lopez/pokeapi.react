@@ -1,15 +1,15 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './layouts/Home'
-import PokeApi from './layouts/PokeApi'
+import PokeListados from './layouts/PokeApi'
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/pokeapi' element={<PokeApi/>}/>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/poke' element={<PokeListados/>}/>
       </Routes>
     </>
   )

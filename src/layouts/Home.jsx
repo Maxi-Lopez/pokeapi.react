@@ -4,7 +4,7 @@ export default function Home() {
   const navigate = useNavigate()
 
   const ir_PokeApi = () => {
-    navigate("/pokeapi") 
+    navigate("/poke") 
   }
 
   return (
@@ -20,7 +20,7 @@ export default function Home() {
           color: "blue"
         }}
       >
-        Ver Pokémon
+        Inicio
       </button>
     </div>
   )

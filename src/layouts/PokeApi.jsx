@@ -15,13 +15,13 @@ const PokeListados = () => {
     setLoading(true)
     setError(null)
     try {
-      const [resPok, resAb] = await Promise.all([
+      const [resPok, resHab] = await Promise.all([
         fetch("https://pokeapi.co/api/v2/pokemon?limit=50"),
         fetch("https://pokeapi.co/api/v2/ability?limit=50")
       ])
-      if (!resPok.ok || !resAb.ok) throw new Error("Error al cargar datos")
+      if (!resPok.ok || !resHab.ok) throw new Error("Error al cargar datos")
       const dataPok = await resPok.json()
-      const dataHab = await resAb.json()
+      const dataHab = await resHab.json()
       setPokemons(dataPok.results)
       setAbilities(dataHab.results)
     } 
@@ -34,8 +34,6 @@ const PokeListados = () => {
       setLoading(false)
     }
   }
-
-  if (pokemons.length === 0 && !loading) cargarDatos()
 
   const mostrarDetalle = async (url) => {
     try {
@@ -65,7 +63,14 @@ const PokeListados = () => {
         ← Volver a Home
       </Link>
 
-      <h1 style={{ textAlign: "center", marginBottom: "1rem" }}>Pokemons</h1>
+      <h1 style={{ textAlign: "center", marginBottom: "1rem" }}>Pokemones</h1>
+
+      <button 
+        onClick={cargarDatos} 
+        style={{ marginBottom: "1rem", padding: "0.5rem 1rem", cursor: "pointer", color: "blue" }}
+      >
+        Cargar datos
+      </button>
 
       {loading && <p>Cargando...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -73,7 +78,7 @@ const PokeListados = () => {
       {pokemons.length > 0 && abilities.length > 0 && (
         <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
           <div style={{ flex: 1 }}>
-            <h3>Pokemon</h3>
+            <h3>Pokémon</h3>
             <DataTable value={pokemons} paginator rows={50}>
               <Column 
                 header="#" 
